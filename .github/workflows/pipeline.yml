@@ -1,3 +1,4 @@
+name: Cloudcamp CI
 on:
   push:
 
@@ -13,5 +14,29 @@ jobs:
         run: |
           ls
           pwd
-      - uses: hashicorp/setup-terraform@v3
+      - name: Instalación de terraform
+        uses: hashicorp/setup-terraform@v3
       - run: terraform version
+
+  job-depends:
+    runs-on: ubuntu-latest
+    needs: [hello_world]
+    steps:
+      - run: echo "${{ github.actor }}"
+  terraform:
+    name: Terraform CI
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - name: "checkout"
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #Version 4.2.2
+
+      - name: Instalación de terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Ejecución terraform init
+        run: terraform init
+      - name: Ejecución terraform plan
+        run: terraform plan
