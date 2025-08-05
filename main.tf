@@ -13,10 +13,10 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "284698404434_magda_herrera"
+  bucket = "284698404434_erika_ganchozo"
 
   tags = {
-    Owner  = "mh"
+    Owner  = "eg"
     Bootcamp = "devops"
   }
 }
