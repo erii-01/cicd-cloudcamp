@@ -8,6 +8,8 @@ on:
 
       text_field:
         type: string
+        required: true
+        default: test
 
 jobs:
   hello_world:
